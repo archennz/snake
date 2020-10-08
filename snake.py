@@ -29,7 +29,6 @@ class Apple(pygame.sprite.Sprite):
         pygame.draw.rect(surface, (255, 0, 0), self.rect)
 
 
-
 class Snake(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -45,9 +44,12 @@ class Snake(pygame.sprite.Sprite):
     def draw(self, surface):
         """prints whole snake on surface"""
         pygame.draw.rect(surface, (0, 255, 0), self.rect)
+        #print("---------------------------")
+        #print(self.rect)
         for rect in self.tail:
             pygame.draw.rect(surface, (0, 0, 255), rect)
-
+        #print(self.tail)
+        #print("---------------------------")
 
     def move_head(self):
         """updates new position of head, given keyboard input"""
@@ -73,21 +75,30 @@ class Snake(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
 
-    def move_tail(self):
+    def move_tail(self, eating = False):
         """updates new position of tail"""
-        new_tail = [self.rect] + self.tail
-        self.tail = new_tail[:-1]
-
-
-    def move_snake(self):
-        """updates new snake pos"""
-        self.move_tail()
-        self.move_head()
+        if eating == True:
+            new_tail = [self.rect] + self.tail
+        #    print(new_tail)
+            self.tail = new_tail
+        #    print('OMG')
+        else:
+            new_tail = [self.rect] + self.tail
+            self.tail = new_tail[:-1]
 
 
     def eat(self, apple):
-        if pygame.sprite.collide_rect(self, apple):
-            print("OMG")
+        return pygame.sprite.collide_rect(self, apple)
+
+
+    def move_snake(self, apple):
+        """updates new snake pos"""
+        eating = Snake.eat(self, apple)
+        self.move_tail(eating = eating)
+        self.move_head()
+
+
+
 
 
 def main():
@@ -108,8 +119,8 @@ def main():
 
     # Make snake
     snake = Snake(8,1)
-    snake.tail = [pygame.Rect(snake.x * width, (snake.y+1) * width, width, width),
-                    pygame.Rect(snake.x * width, (snake.y+2) * width, width, width)]
+    #snake.tail = [pygame.Rect(snake.x * width, (snake.y+1) * width, width, width),
+    #                pygame.Rect(snake.x * width, (snake.y+2) * width, width, width)]
     #snake.tail = []
     # Initialise clock
     clock = pygame.time.Clock()
@@ -118,7 +129,7 @@ def main():
         clock.tick(1)
         screen.blit(background, (0,0))
         apple.draw(screen)
-        snake.move_snake()
+        snake.move_snake(apple)
         snake.draw(screen)
         snake.eat(apple)
 
