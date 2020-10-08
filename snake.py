@@ -25,10 +25,19 @@ class Apple(pygame.sprite.Sprite):
         # self.image.fill((255, 0, 0))
         self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
+    def displace(self, forbidden):
+        while (self.x, self.y) in forbidden:
+            self.x = randint(0, nrow-1)
+            self.y = randint(0, nrow-1)
+        self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
+
     def draw(self, surface):
         pygame.draw.rect(surface, (255, 0, 0), self.rect)
 
 
+## To do
+# cannot walk into itself
+# apples need to not be able to go to snake
 class Snake(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -40,16 +49,17 @@ class Snake(pygame.sprite.Sprite):
         # self.image.fill((0,225, 0))
         self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
         self.tail = [] # elem should be a list of rect
+        self.tail_pos = []
 
     def draw(self, surface):
         """prints whole snake on surface"""
         pygame.draw.rect(surface, (0, 255, 0), self.rect)
-        #print("---------------------------")
-        #print(self.rect)
+        # print("---------------------------")
+        # print(self.rect)
         for rect in self.tail:
             pygame.draw.rect(surface, (0, 0, 255), rect)
-        #print(self.tail)
-        #print("---------------------------")
+        # print(self.tail)
+        # print("---------------------------")
 
     def move_head(self):
         """updates new position of head, given keyboard input"""
@@ -77,25 +87,31 @@ class Snake(pygame.sprite.Sprite):
 
     def move_tail(self, eating = False):
         """updates new position of tail"""
+        new_tail = [self.rect] + self.tail
+        new_tail_pos = [(self.x, self.y)] + self.tail_pos
         if eating == True:
-            new_tail = [self.rect] + self.tail
-        #    print(new_tail)
             self.tail = new_tail
-        #    print('OMG')
+            self.tail_pos = new_tail_pos
         else:
-            new_tail = [self.rect] + self.tail
             self.tail = new_tail[:-1]
-
+            self.tail_pos = new_tail_pos[:-1]
 
     def eat(self, apple):
         return pygame.sprite.collide_rect(self, apple)
 
+    def check_tangled(self):
+        return (self.x, self.y) in self.tail_pos
 
     def move_snake(self, apple):
         """updates new snake pos"""
-        eating = Snake.eat(self, apple)
-        self.move_tail(eating = eating)
-        self.move_head()
+        if self.check_tangled():
+            print("fucked up")
+            pygame.quit()
+        else:
+            eating = Snake.eat(self, apple)
+            self.move_tail(eating = eating)
+            self.move_head()
+
 
 
 
@@ -114,11 +130,14 @@ def main():
     background.fill((0, 0, 0))
     draw_grid(width, nrow, background)
 
-    # Make apple 
-    apple = Apple()
 
     # Make snake
     snake = Snake(8,1)
+
+    # Make apple 
+    apple = Apple()
+    forbidden = [(snake.x, snake.y)] + snake.tail_pos
+    apple.displace(forbidden)
     #snake.tail = [pygame.Rect(snake.x * width, (snake.y+1) * width, width, width),
     #                pygame.Rect(snake.x * width, (snake.y+2) * width, width, width)]
     #snake.tail = []
@@ -128,10 +147,28 @@ def main():
     while 1:
         clock.tick(1)
         screen.blit(background, (0,0))
+
+        # draws apple
         apple.draw(screen)
+
+        eaten = snake.eat(apple)
+
+        # checks if snake touching apple and update next 
         snake.move_snake(apple)
+
+        if eaten:
+            forbidden = [(snake.x, snake.y)] + snake.tail_pos
+            apple.displace(forbidden)
+
+        # draws snake and tail
         snake.draw(screen)
-        snake.eat(apple)
+
+
+
+        # if snake.eat(apple):
+        #   
+        #    apple.displace(forbidden)
+
 
 
         pygame.display.flip()
