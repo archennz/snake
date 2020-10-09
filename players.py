@@ -80,12 +80,12 @@ class Snake(pygame.sprite.Sprite):
     def move_snake(self, orders, eating = False):
         """ update whole snake position depending if snake is eating
             disallows illegal snake moves"""
-        if self.is_tangled():
-            print("fucked up") # should probably fix this to print something better
-            pygame.quit()
-        else:
-            self.move_tail(eating = eating)
-            self.move_head(orders)
+        #if self.is_tangled():
+        #    print("fucked up") # should probably fix this to print something better
+        #    pygame.quit()
+        #else:
+        self.move_tail(eating = eating)
+        self.move_head(orders)
 
     def get_pos(self):
         """ gives list of position of head and tail"""

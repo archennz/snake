@@ -56,6 +56,16 @@ def get_control():
                 return 'D'
 
 
+def print_score(score, screen):
+    font = pygame.font.Font(None, 36)
+    message = "You lost, your score is " + str(score)
+    box = font.render(message, 1, (219, 117, 49))
+    textpos = box.get_rect()
+    textpos.centerx = screen.get_rect().centerx
+    screen.blit(box, textpos)
+    pygame.display.flip()
+
+
 def main():
 
     screen, background = initialise_screen(nrow, width)
@@ -68,7 +78,10 @@ def main():
     # Initialise clock
     clock = pygame.time.Clock()
 
-    while 1:
+    score = 0
+
+    # it checks for the tangle a little bit too late for length 2 snake
+    while not snake.is_tangled():
         clock.tick(1)
         screen.blit(background, (0, 0))
 
@@ -81,6 +94,7 @@ def main():
         snake.move_snake(get_control(), eating = eaten)
 
         if eaten:
+            score += 1
             forbidden = snake.get_pos()
             apple.displace(forbidden)
 
@@ -88,6 +102,12 @@ def main():
         snake.draw(screen)
 
         pygame.display.flip()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+        print_score(score, screen)
 
 
 
