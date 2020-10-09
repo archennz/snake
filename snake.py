@@ -50,6 +50,7 @@ class Snake(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
         self.tail = [] # elem should be a list of rect
         self.tail_pos = []
+        
 
     def draw(self, surface):
         """prints whole snake on surface"""
