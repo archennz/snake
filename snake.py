@@ -1,12 +1,6 @@
 import pygame
-from world import nrow, width
+from world import nrow, width  # import size of world
 from players import Apple, Snake
-
-# some global settings
-#nrow = 10
-#width = 50
-
-
 
 
 def draw_grid(width, nrow, surface):
@@ -19,7 +13,8 @@ def draw_grid(width, nrow, surface):
 
 
 def initialise_screen(nrow, width):
-    """makes screen and draw grid"""    
+    """makes screen and draw grid
+        returns screen and background as objects"""
     s_width = nrow*width
     pygame.init()
     screen = pygame.display.set_mode((s_width, s_width))
@@ -36,13 +31,15 @@ def initialise_screen(nrow, width):
 def initialise_apple(snake):
     """ given snake, makes apple not overlapping snake """
     apple = Apple()
-    forbidden = [(snake.x, snake.y)] + snake.tail_pos
+    forbidden = snake.get_pos()
     apple.displace(forbidden)
     return apple
+
 
 def is_eating(snake, apple):
     """ check if snake head is in same pos as apple """
     return (snake.x, snake.y) == (apple.x, apple.y)
+
 
 def get_control():
     for event in pygame.event.get():
@@ -58,13 +55,13 @@ def get_control():
             elif event.key == pygame.K_DOWN:
                 return 'D'
 
+
 def main():
 
     screen, background = initialise_screen(nrow, width)
 
     # Make snake
-    snake = Snake(8,1)
-
+    snake = Snake(8, 1)
     # Make apple
     apple = initialise_apple(snake)
 
@@ -73,7 +70,7 @@ def main():
 
     while 1:
         clock.tick(1)
-        screen.blit(background, (0,0))
+        screen.blit(background, (0, 0))
 
         # draws apple
         apple.draw(screen)
@@ -90,17 +87,7 @@ def main():
         # draws snake and tail
         snake.draw(screen)
 
-        # if snake.eat(apple):
-        #   
-        #    apple.displace(forbidden)
-
-
-
         pygame.display.flip()
-
-
-
-
 
 
 
