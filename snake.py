@@ -1,9 +1,10 @@
 import pygame
-from players import Apple
+from world import nrow, width
+from players import Apple, Snake
 
 # some global settings
-nrow = 10
-width = 50
+#nrow = 10
+#width = 50
 
 
 
@@ -83,7 +84,7 @@ def main():
         snake.move_snake(get_control(), eating = eaten)
 
         if eaten:
-            forbidden = [(snake.x, snake.y)] + snake.tail_pos
+            forbidden = snake.get_pos()
             apple.displace(forbidden)
 
         # draws snake and tail

@@ -1,8 +1,7 @@
 import pygame
+from world import nrow, width
 from random import randint
 
-nrow = 10
-width = 50
 
 class Apple(pygame.sprite.Sprite):
     def __init__(self):
@@ -21,7 +20,6 @@ class Apple(pygame.sprite.Sprite):
 
     def draw(self, surface):
         pygame.draw.rect(surface, (255, 0, 0), self.rect)
-
 
 
 class Snake(pygame.sprite.Sprite):
@@ -43,7 +41,7 @@ class Snake(pygame.sprite.Sprite):
             pygame.draw.rect(surface, (0, 0, 255), rect)
 
     def move_head(self, orders):
-        """ Given orders 'L' 'R' 'U' 'D', 
+        """ Given orders 'L' 'R' 'U' 'D',
             updates position of snake head in the next frame
             continue with existing direction if received no orders """
         if orders == 'L':
@@ -68,7 +66,7 @@ class Snake(pygame.sprite.Sprite):
             grows tail by one if eating"""
         new_tail = [self.rect] + self.tail
         new_tail_pos = [(self.x, self.y)] + self.tail_pos
-        if eating == True:
+        if eating is True:
             self.tail = new_tail
             self.tail_pos = new_tail_pos
         else:
@@ -88,3 +86,7 @@ class Snake(pygame.sprite.Sprite):
         else:
             self.move_tail(eating = eating)
             self.move_head(orders)
+
+    def get_pos(self):
+        """ gives list of position of head and tail"""
+        return [(self.x, self.y)] + self.tail_pos
