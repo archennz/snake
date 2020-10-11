@@ -84,7 +84,6 @@ class Snake(pygame.sprite.Sprite):
         self.receive_orders(orders)
         self.move_head()
 
-
     def get_pos(self):
         """ gives list of position of head and tail"""
         return [(self.x, self.y)] + self.tail_pos

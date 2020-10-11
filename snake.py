@@ -76,7 +76,6 @@ def main():
     snake = Snake(8, 1)
     apple = move_apple(Apple(), snake)
 
-    #tangled = False
 
     # it checks for the tangle a little bit too late for length 2 snake
     while not snake.is_tangled():
@@ -93,8 +92,6 @@ def main():
         if eaten:
             score += 1
             move_apple(apple, snake)
-        # tangled = snake.is_tangled()
-        # draws snake and tail
 
 
         pygame.display.flip()
