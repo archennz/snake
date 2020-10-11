@@ -28,9 +28,9 @@ def initialise_screen(nrow, width):
     return screen, background
 
 
-def initialise_apple(snake):
+def move_apple(apple, snake):
     """ given snake, makes apple not overlapping snake """
-    apple = Apple()
+    # apple = Apple()
     forbidden = snake.get_pos()
     apple.displace(forbidden)
     return apple
@@ -67,26 +67,23 @@ def print_score(score, screen):
 
 
 def main():
-
+    # make world
     screen, background = initialise_screen(nrow, width)
-
-    # Make snake
-    snake = Snake(8, 1)
-    # Make apple
-    apple = initialise_apple(snake)
-
-    # Initialise clock
     clock = pygame.time.Clock()
-
     score = 0
+
+    # Make characters
+    snake = Snake(8, 1)
+    apple = move_apple(Apple(), snake)
+
+    #tangled = False
 
     # it checks for the tangle a little bit too late for length 2 snake
     while not snake.is_tangled():
-        clock.tick(1)
+        clock.tick(3)
         screen.blit(background, (0, 0))
-
-        # draws apple
         apple.draw(screen)
+        snake.draw(screen)
 
         eaten = is_eating(snake, apple)
 
@@ -95,11 +92,10 @@ def main():
 
         if eaten:
             score += 1
-            forbidden = snake.get_pos()
-            apple.displace(forbidden)
-
+            move_apple(apple, snake)
+        # tangled = snake.is_tangled()
         # draws snake and tail
-        snake.draw(screen)
+
 
         pygame.display.flip()
 

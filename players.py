@@ -40,14 +40,15 @@ class Snake(pygame.sprite.Sprite):
         for rect in self.tail:
             pygame.draw.rect(surface, (0, 0, 255), rect)
 
-    def move_head(self, orders):
-        """ Given orders 'L' 'R' 'U' 'D',
-            updates position of snake head in the next frame
-            continue with existing direction if received no orders """
+    def move_head(self):
+        """update position according to direction """
         self.x = (self.x_dir + self.x) % nrow  # ensure the world wraps around
         self.y = (self.y_dir + self.y) % nrow
         self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
+    def receive_orders(self, orders):
+        """ Given orders 'L' 'R' 'U' 'D',
+            updates direction of snake head in the next frame """
         if orders == 'L':
             self.x_dir = -1
             self.y_dir = 0
@@ -60,7 +61,6 @@ class Snake(pygame.sprite.Sprite):
         elif orders == 'D':
             self.x_dir = 0
             self.y_dir = 1
-
 
     def move_tail(self, eating = False):
         """updates new position of tail
@@ -79,14 +79,11 @@ class Snake(pygame.sprite.Sprite):
         return (self.x, self.y) in self.tail_pos
 
     def move_snake(self, orders, eating = False):
-        """ update whole snake position depending if snake is eating
-            disallows illegal snake moves"""
-        #if self.is_tangled():
-        #    print("fucked up") # should probably fix this to print something better
-        #    pygame.quit()
-        #else:
+        """ update whole snake position depending if snake is eating"""
         self.move_tail(eating = eating)
-        self.move_head(orders)
+        self.receive_orders(orders)
+        self.move_head()
+
 
     def get_pos(self):
         """ gives list of position of head and tail"""
