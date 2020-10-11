@@ -44,6 +44,10 @@ class Snake(pygame.sprite.Sprite):
         """ Given orders 'L' 'R' 'U' 'D',
             updates position of snake head in the next frame
             continue with existing direction if received no orders """
+        self.x = (self.x_dir + self.x) % nrow  # ensure the world wraps around
+        self.y = (self.y_dir + self.y) % nrow
+        self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
+
         if orders == 'L':
             self.x_dir = -1
             self.y_dir = 0
@@ -57,9 +61,6 @@ class Snake(pygame.sprite.Sprite):
             self.x_dir = 0
             self.y_dir = 1
 
-        self.x = (self.x_dir + self.x) % nrow  # ensure the world wraps around
-        self.y = (self.y_dir + self.y) % nrow
-        self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
     def move_tail(self, eating = False):
         """updates new position of tail
