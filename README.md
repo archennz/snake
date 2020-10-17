@@ -1,6 +1,6 @@
 # snake
 
-This is a toy project to take implements the classic game snake using the PyGame module
+This is a toy project that implements the classic game snake using the PyGame module
 
 ## Running the code
 Make sure you are in the project folder and then run:
