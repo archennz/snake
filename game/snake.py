@@ -1,5 +1,5 @@
 import pygame
-from world import nrow, width  # import size of world
+from game.world import nrow, width  # import size of world
 from players import Apple, Snake
 =)
 

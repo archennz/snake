@@ -1,5 +1,5 @@
 import pygame
-from world import nrow, width
+from game.world import nrow, width
 from random import randint
 
 
