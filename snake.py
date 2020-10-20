@@ -1,7 +1,7 @@
 import pygame
 from world import nrow, width  # import size of world
 from players import Apple, Snake
-
+=)
 
 def draw_grid(width, nrow, surface):
     """creates chessgrid for surface"""
