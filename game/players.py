@@ -4,26 +4,25 @@ from game.world import nrow, width
 from random import randint
 
 
-def get_image(image_name):
-    try:
-        full_name = os.path.join('images', image_name)
-        image = pygame.image.load(full_name)
-    except pygame.error as message:
-        print('Cannot load image', image_name)
-        raise SystemExit(message)
-    image = image.convert()
-    image = pygame.transform.scale(image, (width, width))
-    colorkey = image.get_at((1, 1))
-    image.set_colorkey(colorkey)
-    return image
-
-
 class Apple():
+    def get_image(image_name):
+        try:
+            full_name = os.path.join('images', image_name)
+            image = pygame.image.load(full_name)
+        except pygame.error as message:
+            print('Cannot load image', image_name)
+            raise SystemExit(message)
+        image = image.convert()
+        image = pygame.transform.scale(image, (width, width))
+        colorkey = image.get_at((1, 1))
+        image.set_colorkey(colorkey)
+        return image
+
     def __init__(self):
         """ Apples comes with randomly generated inherent x,y position"""
         self.x = randint(0, nrow-1)
         self.y = randint(0, nrow-1)
-        self.image = get_image('apple.png')
+        self.image = Apple.get_image('apple.png')
 
     def displace(self, forbidden):
         """Given list of forbidden coord, moves apple to avilable new coord"""

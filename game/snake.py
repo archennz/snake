@@ -76,7 +76,6 @@ def main():
     snake = Snake(8, 1)
     apple = move_apple(Apple(), snake)
 
-
     # it checks for the tangle a little bit too late for length 2 snake
     while not snake.is_tangled():
         clock.tick(3)
@@ -85,14 +84,11 @@ def main():
         snake.draw(screen)
 
         eaten = is_eating(snake, apple)
-
-        # checks if snake touching apple and update next 
-        snake.move_snake(get_control(), eating = eaten)
-
+        # checks if snake touching apple and update next
+        snake.move_snake(get_control(), eating=eaten)
         if eaten:
             score += 1
             move_apple(apple, snake)
-
 
         pygame.display.flip()
 
@@ -103,7 +99,4 @@ def main():
         print_score(score, screen)
 
 
-
-
-
-if __name__  == '__main__': main()
+if __name__ == '__main__' :main()
