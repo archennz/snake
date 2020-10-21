@@ -3,23 +3,24 @@ from game.world import nrow, width
 from random import randint
 
 
-class Apple(pygame.sprite.Sprite):
+class Apple():
     def __init__(self):
         """ Apples comes with randomly generated inherent x,y position"""
-        pygame.sprite.Sprite.__init__(self)
+        #pygame.sprite.Sprite.__init__(self)
         self.x = randint(0, nrow-1)
         self.y = randint(0, nrow-1)
-        self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
+        # self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
     def displace(self, forbidden):
-        """Given a list of forbidden coordinates, moves apple to avilable new coordinates"""
+        """Given a list of forbidden coord, moves apple to avilable new coord"""
         while (self.x, self.y) in forbidden:
             self.x = randint(0, nrow-1)
             self.y = randint(0, nrow-1)
-        self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
+        # self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
     def draw(self, surface):
-        pygame.draw.rect(surface, (255, 0, 0), self.rect)
+        rect = pygame.Rect(self.x * width, self.y * width, width, width)
+        pygame.draw.rect(surface, (255, 0, 0), rect)
 
 
 class Snake(pygame.sprite.Sprite):
