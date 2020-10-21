@@ -23,10 +23,10 @@ class Apple():
         pygame.draw.rect(surface, (255, 0, 0), rect)
 
 
-class Snake(pygame.sprite.Sprite):
+class Snake():
     def __init__(self, x, y):
         """ Given x,y position, assign snake of length 1"""
-        pygame.sprite.Sprite.__init__(self)
+        #pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
         self.x_dir = 0
