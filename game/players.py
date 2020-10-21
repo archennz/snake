@@ -7,12 +7,12 @@ from random import randint
 class Apple():
     def get_image(image_name):
         try:
-            full_name = os.path.join('images', image_name)
+            full_name = os.path.join('game/images', image_name)
             image = pygame.image.load(full_name)
         except pygame.error as message:
             print('Cannot load image', image_name)
             raise SystemExit(message)
-        image = image.convert()
+        #image = image.convert()
         image = pygame.transform.scale(image, (width, width))
         colorkey = image.get_at((1, 1))
         image.set_colorkey(colorkey)
