@@ -57,7 +57,7 @@ class Snake():
             self.x_dir = 1
             self.y_dir = 0
         elif orders == 'U':
-            self.x_dir = 0
+            self.x_dir = 0  # remember things are upside down in pygame
             self.y_dir = -1
         elif orders == 'D':
             self.x_dir = 0
