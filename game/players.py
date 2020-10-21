@@ -1,26 +1,38 @@
 import pygame
+import os
 from game.world import nrow, width
 from random import randint
+
+
+def get_image(image_name):
+    try:
+        full_name = os.path.join('images', image_name)
+        image = pygame.image.load(full_name)
+    except pygame.error as message:
+        print('Cannot load image', image_name)
+        raise SystemExit(message)
+    image = image.convert()
+    image = pygame.transform.scale(image, (width, width))
+    colorkey = image.get_at((1, 1))
+    image.set_colorkey(colorkey)
+    return image
 
 
 class Apple():
     def __init__(self):
         """ Apples comes with randomly generated inherent x,y position"""
-        #pygame.sprite.Sprite.__init__(self)
         self.x = randint(0, nrow-1)
         self.y = randint(0, nrow-1)
-        # self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
+        self.image = get_image('apple.png')
 
     def displace(self, forbidden):
-        """Given a list of forbidden coord, moves apple to avilable new coord"""
+        """Given list of forbidden coord, moves apple to avilable new coord"""
         while (self.x, self.y) in forbidden:
             self.x = randint(0, nrow-1)
             self.y = randint(0, nrow-1)
-        # self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
     def draw(self, surface):
-        rect = pygame.Rect(self.x * width, self.y * width, width, width)
-        pygame.draw.rect(surface, (255, 0, 0), rect)
+        surface.blit(self.image, (self.x * width, self.y * width))
 
 
 class Snake():
@@ -63,7 +75,7 @@ class Snake():
             self.x_dir = 0
             self.y_dir = 1
 
-    def move_tail(self, eating = False):
+    def move_tail(self, eating=False):
         """updates new position of tail
             grows tail by one if eating"""
         new_tail = [self.rect] + self.tail
@@ -79,9 +91,9 @@ class Snake():
         """ returns False if snake is moving into itself"""
         return (self.x, self.y) in self.tail_pos
 
-    def move_snake(self, orders, eating = False):
+    def move_snake(self, orders, eating=False):
         """ update whole snake position depending if snake is eating"""
-        self.move_tail(eating = eating)
+        self.move_tail(eating=eating)
         self.receive_orders(orders)
         self.move_head()
 
