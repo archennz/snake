@@ -2,18 +2,8 @@ import pygame
 from game.world import nrow, width  # import size of world
 from players import Apple, Snake
 
-
-def draw_grid(width, nrow, surface):
-    """creates chessgrid for surface"""
-    s_width = width * nrow
-    col = (255, 255, 255)
-    for l in range(nrow):
-        pygame.draw.line(surface, col, (l * width, 0), (l * width, s_width))
-        pygame.draw.line(surface, col, (0, l * width), (s_width, l * width))
-
-
 def initialise_screen(nrow, width):
-    """makes screen and draw grid
+    """makes screen
         returns screen and background as objects"""
     s_width = nrow*width
     pygame.init()
@@ -23,7 +13,6 @@ def initialise_screen(nrow, width):
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill((0, 0, 0))
-    draw_grid(width, nrow, background)
 
     return screen, background
 
@@ -39,21 +28,6 @@ def move_apple(apple, snake):
 def is_eating(snake, apple):
     """ check if snake head is in same pos as apple """
     return (snake.x, snake.y) == (apple.x, apple.y)
-
-
-def get_control():
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                return 'L'
-            elif event.key == pygame.K_RIGHT:
-                return 'R'
-            elif event.key == pygame.K_UP:
-                return 'U'
-            elif event.key == pygame.K_DOWN:
-                return 'D'
 
 
 def print_score(score, screen):

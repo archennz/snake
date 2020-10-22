@@ -1,15 +1,17 @@
 import pygame
 from game.world import nrow, width
-from players import Apple, Snake
+from players import Apple, HexSnake
 from utils import *
+import hex_utils
 
 def draw_grid(width, nrow, surface):
-    """creates chessgrid for surface"""
-    s_width = width * nrow
-    col = (255, 255, 255)
-    for l in range(nrow):
-        pygame.draw.line(surface, col, (l * width, 0), (l * width, s_width))
-        pygame.draw.line(surface, col, (0, l * width), (s_width, l * width))
+    """ creates hexagons for surface"""
+    for i in range(nrow):
+        for j in range(nrow):
+            game_coord = hex_utils.change_coord((i,j))
+            points = make_hex_points(game_coord)
+            col = (255, 255, 255)
+            surface.draw.polygon(col, points)
 
 def get_control():
     for event in pygame.event.get():
@@ -24,10 +26,10 @@ def get_control():
                 return 'U'
             elif event.key == pygame.K_DOWN:
                 return 'D'
+
 def main():
     # make world
     screen, background = initialise_screen(nrow, width)
-    draw_grid(width, nrow, background)
     clock = pygame.time.Clock()
     score = 0
 
@@ -59,3 +61,4 @@ def main():
 
 
 if __name__ == '__main__' :main()
+
