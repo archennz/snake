@@ -18,18 +18,24 @@ def get_control():
         if event.type == pygame.QUIT:
             pygame.quit()
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
+            if event.key == pygame.K_a:
                 return 'L'
-            elif event.key == pygame.K_RIGHT:
+            elif event.key == pygame.K_d:
                 return 'R'
-            elif event.key == pygame.K_UP:
-                return 'U'
-            elif event.key == pygame.K_DOWN:
-                return 'D'
+            elif event.key == pygame.K_w:
+                return 'UL'
+            elif event.key == pygame.K_e:
+                return 'UR'
+            elif event.key == pygame.K_z:
+                return 'DL'
+            elif event.key == pygame.K_x:
+                return 'DR'
 
 def main():
     # make world
+    # the initialise_screen method is a bit weird
     screen, background = initialise_screen(nrow, width)
+    draw_grid(width, nrow, background)
     clock = pygame.time.Clock()
     score = 0
 
