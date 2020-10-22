@@ -1,4 +1,4 @@
-from game import hex_snake
+from game import hex_utils
 from game.world import nrow
 import pytest
 
