@@ -30,4 +30,7 @@ class TestChangeCoord:
     def test_change_coord(self, x_coord, game_coord):
         assert hex_snake.change_coord(x_coord) == game_coord
 
-        
+
+# the next couples of functions should be tested by the pyplot debugger
+# draw_game_center
+# draw_game_coord

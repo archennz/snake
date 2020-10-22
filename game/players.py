@@ -5,6 +5,13 @@ from random import randint
 
 
 class Apple():
+    def __init__(self):
+        """ Apples comes with randomly generated inherent x,y position"""
+        self.x = randint(0, nrow-1)
+        self.y = randint(0, nrow-1)
+        self.image = Apple.get_image('apple.png')
+
+    @staticmethod
     def get_image(image_name):
         try:
             full_name = os.path.join('game/images', image_name)
@@ -17,12 +24,6 @@ class Apple():
         colorkey = image.get_at((1, 1))
         image.set_colorkey(colorkey)
         return image
-
-    def __init__(self):
-        """ Apples comes with randomly generated inherent x,y position"""
-        self.x = randint(0, nrow-1)
-        self.y = randint(0, nrow-1)
-        self.image = Apple.get_image('apple.png')
 
     def displace(self, forbidden):
         """Given list of forbidden coord, moves apple to avilable new coord"""
@@ -101,3 +102,11 @@ class Snake():
     def get_pos(self):
         """ gives list of position of head and tail"""
         return [(self.x, self.y)] + self.tail_pos
+
+class HexSnake(Snake):
+    def draw(self, surface):
+        pass
+
+    # def receive_orders(self, orders):
+        
+    

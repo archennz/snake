@@ -4,9 +4,9 @@ import matplotlib.pyplot as plt
 
 
 def change_coord(coord):
-    """change coord from column, row to game coord n,m
-    expect x to be in range(0, nrow)
-    y to be in range (0, nrow)"""
+    """change coord from (column, row) to game coord
+    game coord change big row numbers to negative
+    for wrapping around"""
     (column, row) = coord
     offset = row//2
     if column >= (nrow - offset):
@@ -16,7 +16,7 @@ def change_coord(coord):
 
 
 def draw_game_coord(game_coord):
-    """render game coord into game coord on plane"""
+    """render game coord into cartesian coord for pygame surface"""
     (column, row) = game_coord
     cross_width = cos(radians(30))*width
     game_x = cross_width/2 + row*cross_width/2 + column*cross_width
@@ -24,16 +24,23 @@ def draw_game_coord(game_coord):
     return (game_x, game_y)
 
 
-def make_hex_points(game_coord, inner_rad):
-    """draws the six pts on the hex surrounding center"""
-    (m, n) = game_coord
-    (game_x, game_y) = draw_game_coord(game_coord)
+def make_hex(cart_coord, inner_rad):
+    """given cartesian coord of center, return cartesian coord for
+    six points of hexagon"""
     points = []
+    (game_x, game_y) = cart_coord
     for i in range(-30, 330, 60):
         new_x = game_x + inner_rad*cos(radians(i))
         new_y = game_y + inner_rad*sin(radians(i))
         points.append((new_x, new_y))
     return points
+
+
+def make_hex_points(game_coord, inner_rad):
+    """given game coord, returns cartesiaon coord for
+    the six pts on the hex surrounding center for pygame surface"""
+    cart_coord = draw_game_coord(game_coord)
+    return make_hex(cart_coord, inner_rad)
 
 
 def draw_game_center():
