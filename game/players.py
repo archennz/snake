@@ -103,9 +103,32 @@ class Snake():
         """ gives list of position of head and tail"""
         return [(self.x, self.y)] + self.tail_pos
 
+    
 class HexSnake(Snake):
     def draw(self, surface):
         pass
+
+    def receive_orders(self, orders):
+        """ Given orders 'L' 'R' 'UL' 'UR' 'DL' 'DR',
+            updates direction of snake head in the next frame """
+        if orders == 'L':
+            self.x_dir = -1
+            self.y_dir = 0
+        if orders == 'R':
+            self.x_dir = 1
+            self.y_dir = 0
+        elif orders == 'UL':
+            self.x_dir = -1  # remember things are upside down in pygame
+            self.y_dir = 1
+        elif orders == 'UR':
+            self.x_dir = 0  # remember things are upside down in pygame
+            self.y_dir = 1
+        elif orders == 'DL':
+            self.x_dir = 0
+            self.y_dir = 1
+        elif orders == 'DR':
+            self.x_dir = 1
+            self.y_dir = -1      
 
     # def receive_orders(self, orders):
         

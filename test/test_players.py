@@ -1,3 +1,4 @@
+import pytest
 from game import players
 from game.world import nrow
 
@@ -83,3 +84,31 @@ class TestSnake:
 
     def test_move_snake(self):
         pass
+
+
+class TestHexSnake:
+    @pytest.fixture
+    def hex_snake_1(self):
+        hex_snake = players.HexSnake(1, 1)
+        return hex_snake
+    
+    @pytest.mark.parametrize('direction', 'coord', [
+        ('L', (0, 1)),
+        ('R', (2, 1)),
+        ('UL', (0, 2)),
+        ('UR', (1, 2)),
+        ('DL', (1, 0)),
+        ('DR', (2, 0))
+    ])
+
+    def test_receive_orders(self, hex_snake_1):
+        hex_snake_1_1 = hex_snake_1
+        hex_snake_1_1.receive_orders('L')
+        hex_snake_1_1.move_head()
+        assert (hex_snake_1_1.x, hex_snake_1_1.y) == (0,1)
+
+    def test_receive_orders_2(self, hex_snake_1):
+        hex_snake_1_1 = hex_snake_1
+        hex_snake_1_1.receive_orders('R')
+        hex_snake_1_1.move_head()
+        assert (hex_snake_1_1.x, hex_snake_1_1.y) == (2,1)
