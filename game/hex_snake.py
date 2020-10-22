@@ -9,9 +9,9 @@ def draw_grid(width, nrow, surface):
     for i in range(nrow):
         for j in range(nrow):
             game_coord = hex_utils.change_coord((i,j))
-            points = make_hex_points(game_coord)
+            points = hex_utils.make_hex_points(game_coord, width/2)
             col = (255, 255, 255)
-            surface.draw.polygon(col, points)
+            pygame.draw.lines(surface, col, True, points)
 
 def get_control():
     for event in pygame.event.get():
