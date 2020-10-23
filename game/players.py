@@ -112,7 +112,7 @@ class HexSnake(Snake):
         tail_col = (0, 0, 255)
         head_hex = make_hex_points_from_coord((self.x, self.y), inner_rad)
         pygame.draw.polygon(surface, head_col, head_hex)
-        for tail_piece in self.tail:
+        for tail_piece in self.tail_pos:
             tail_hex = make_hex_points_from_coord((tail_piece), inner_rad)
             pygame.draw.polygon(surface, tail_col, tail_hex)
           
