@@ -125,10 +125,10 @@ class HexSnake(Snake):
             self.y_dir = 1
         elif orders == 'DL':
             self.x_dir = 0
-            self.y_dir = 1
+            self.y_dir = -1
         elif orders == 'DR':
             self.x_dir = 1
-            self.y_dir = -1      
+            self.y_dir = -1   
 
     # def receive_orders(self, orders):
         
