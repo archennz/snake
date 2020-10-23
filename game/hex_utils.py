@@ -24,6 +24,12 @@ def draw_game_coord(game_coord):
     return (game_x, game_y)
 
 
+def convert_coord_to_game_coord(coord):
+    """change coord from (column, row) to cartesian coord for pygame"""
+    game_coord = change_coord(coord)
+    return draw_game_coord(game_coord)
+
+
 def make_hex(cart_coord, inner_rad):
     """given cartesian coord of center, return cartesian coord for
     six points of hexagon"""
@@ -37,10 +43,16 @@ def make_hex(cart_coord, inner_rad):
 
 
 def make_hex_points(game_coord, inner_rad):
-    """given game coord, returns cartesiaon coord for
-    the six pts on the hex surrounding center for pygame surface"""
+    """given game coord, returns cartesion coord for
+    the six pts on the hex surrounding center"""
     cart_coord = draw_game_coord(game_coord)
     return make_hex(cart_coord, inner_rad)
+
+def make_hex_points_from_coord(coord, inner_rad):
+    """given (row, column) return cartesian coord for 
+    the six points on the hex surrounding center"""
+    game_coord = change_coord(coord)
+    return make_hex_points(game_coord, inner_rad)
 
 
 def draw_game_center():

@@ -2,6 +2,7 @@ import pygame
 import os
 from game.world import nrow, width
 from random import randint
+from game.hex_utils import convert_coord_to_game_coord, make_hex_points_from_coord
 
 
 class Apple():
@@ -9,10 +10,10 @@ class Apple():
         """ Apples comes with randomly generated inherent x,y position"""
         self.x = randint(0, nrow-1)
         self.y = randint(0, nrow-1)
-        self.image = Apple.get_image('apple.png')
+        self.image = Apple.get_image('apple.png', width)
 
     @staticmethod
-    def get_image(image_name):
+    def get_image(image_name, width):
         try:
             full_name = os.path.join('game/images', image_name)
             image = pygame.image.load(full_name)
@@ -136,8 +137,17 @@ class HexSnake(Snake):
             self.y_dir = -1
         elif orders == 'DR':
             self.x_dir = 1
-            self.y_dir = -1   
-
-    # def receive_orders(self, orders):
+            self.y_dir = -1
         
-    
+
+class HexApple(Apple):
+    def __init__(self):
+        super().__init__()
+        self.image = Apple.get_image('apple.png', width//2)
+        
+    def draw(self, surface):
+        coord = (self.x, self.y)
+        (center_x, center_y) = convert_coord_to_game_coord(coord)
+        game_cart_coord = (center_x - width//4, center_y - width//4)
+        surface.blit(self.image, game_cart_coord)
+        

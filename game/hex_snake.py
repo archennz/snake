@@ -1,6 +1,6 @@
 import pygame
 from game.world import nrow, width
-from players import Apple, HexSnake
+from players import HexApple, HexSnake
 from utils import *
 import hex_utils
 
@@ -42,7 +42,7 @@ def main():
 
     # Make characters
     snake = HexSnake(8, 1)
-    apple = move_apple(Apple(), snake)
+    apple = move_apple(HexApple(), snake)
 
     # it checks for the tangle a little bit too late for length 2 snake
     while not snake.is_tangled():
