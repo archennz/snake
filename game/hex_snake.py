@@ -13,6 +13,7 @@ def draw_grid(width, nrow, surface):
             col = (255, 255, 255)
             pygame.draw.lines(surface, col, True, points)
 
+
 def get_control():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -40,7 +41,7 @@ def main():
     score = 0
 
     # Make characters
-    snake = Snake(8, 1)
+    snake = HexSnake(8, 1)
     apple = move_apple(Apple(), snake)
 
     # it checks for the tangle a little bit too late for length 2 snake

@@ -51,7 +51,7 @@ class Snake():
         """prints snake head and tail on surface"""
         rad = width/2
         cent = (self.x * width + rad, self.y * width + rad)
-        pygame.draw.circle(surface, (0, 255, 0), cent,rad)
+        pygame.draw.circle(surface, (0, 255, 0), cent, rad)
         for rect in self.tail:
             pygame.draw.rect(surface, (0, 0, 255), rect)
 
@@ -106,7 +106,15 @@ class Snake():
     
 class HexSnake(Snake):
     def draw(self, surface):
-        pass
+        inner_rad = width/2
+        head_col = (0, 255, 0)
+        tail_col = (0, 0, 255)
+        head_hex = make_hex_points_from_coord((self.x, self.y), inner_rad)
+        pygame.draw.polygon(surface, head_col, head_hex)
+        for tail_piece in self.tail:
+            tail_hex = make_hex_points_from_coord((tail_piece), inner_rad)
+            pygame.draw.polygon(surface, tail_col, tail_hex)
+          
 
     def receive_orders(self, orders):
         """ Given orders 'L' 'R' 'UL' 'UR' 'DL' 'DR',
