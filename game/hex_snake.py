@@ -35,7 +35,9 @@ def get_control():
 def main():
     # make world
     # the initialise_screen method is a bit weird
-    screen, background = initialise_screen(nrow, width)
+    s_length = width*(nrow+1)*3/4
+    s_width = hex_utils.get_cross_width(width)*(nrow +1)
+    screen, background = initialise_screen(s_width, s_length, "Hex Snake")
     draw_grid(width, nrow, background)
     clock = pygame.time.Clock()
     score = 0

@@ -26,7 +26,8 @@ def get_control():
                 return 'D'
 def main():
     # make world
-    screen, background = initialise_screen(nrow, width)
+    s_width = nrow*width
+    screen, background = initialise_screen(s_width, s_width, "Rect Snake")
     draw_grid(width, nrow, background)
     clock = pygame.time.Clock()
     score = 0
