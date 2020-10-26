@@ -3,6 +3,9 @@ from math import cos, sin, radians
 import matplotlib.pyplot as plt
 
 
+def get_cross_width(h_width):
+    return cos(radians(30))*width
+
 def change_coord(coord):
     """change coord from (column, row) to game coord
     game coord change big row numbers to negative
@@ -18,7 +21,7 @@ def change_coord(coord):
 def draw_game_coord(game_coord):
     """render game coord into cartesian coord for pygame surface"""
     (column, row) = game_coord
-    cross_width = cos(radians(30))*width
+    cross_width = get_cross_width(width)
     game_x = cross_width/2 + row*cross_width/2 + column*cross_width
     game_y = width/2 + row*cross_width*cos(radians(30))
     return (game_x, game_y)
