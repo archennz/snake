@@ -1,14 +1,16 @@
 import pygame
 from game.world import nrow, width  # import size of world
 from players import Apple, Snake
+from math import ceil
 
-def initialise_screen(nrow, width):
+def initialise_screen(s_width, s_length, name):
     """makes screen
         returns screen and background as objects"""
-    s_width = nrow*width
+    width = int(ceil(s_width))
+    length = int(ceil(s_length))
     pygame.init()
-    screen = pygame.display.set_mode((s_width, s_width))
-    pygame.display.set_caption('Basic Snake')
+    screen = pygame.display.set_mode((width, length))
+    pygame.display.set_caption(name)
 
     background = pygame.Surface(screen.get_size())
     background = background.convert()
