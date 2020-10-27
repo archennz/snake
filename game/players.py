@@ -135,7 +135,6 @@ class HexSnake(Snake):
             mouth = [head_hex[5]] + [head_hex[0]] + [head_center]
             pygame.draw.polygon(surface, mouth_col, mouth)
 
-        
 
     def draw(self, surface):
         inner_rad = width/2
