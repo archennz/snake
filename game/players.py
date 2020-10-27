@@ -61,19 +61,19 @@ class Snake():
         self.y = (self.y_dir + self.y) % nrow
         self.rect = pygame.Rect(self.x * width, self.y * width, width, width)
 
-    def receive_orders(self, orders):
+    def receive_orders(self, order):
         """ Given orders 'L' 'R' 'U' 'D',
             updates direction of snake head in the next frame """
-        if orders == 'L':
+        if order == 'L':
             self.x_dir = -1
             self.y_dir = 0
-        if orders == 'R':
+        if order == 'R':
             self.x_dir = 1
             self.y_dir = 0
-        elif orders == 'U':
+        elif order == 'U':
             self.x_dir = 0  # remember things are upside down in pygame
             self.y_dir = -1
-        elif orders == 'D':
+        elif order == 'D':
             self.x_dir = 0
             self.y_dir = 1
 
@@ -105,35 +105,74 @@ class Snake():
 
 
 class HexSnake(Snake):
+    def __init__(self, x, y):
+        super().__init__(x, y)
+        self.direc = 'DR'
+
+    def draw_mouth(self, surface):
+        """draw solid triangle where the mouth is"""
+        inner_rad = width/2
+        head_hex = make_hex_points_from_coord((self.x, self.y), inner_rad)
+        head_center = convert_coord_to_game_coord((self.x, self.y))
+        mouth_col = (0, 0, 0)
+        if self.direc == 'R':
+            mouth = head_hex[0:2] + [head_center]
+            pygame.draw.polygon(surface, mouth_col, mouth)
+        elif self.direc == 'DR':
+            mouth = head_hex[1:3] + [head_center]
+            pygame.draw.polygon(surface, mouth_col, mouth)
+        elif self.direc == 'DL':
+            mouth = head_hex[2:4] + [head_center]
+            pygame.draw.polygon(surface, mouth_col, mouth)
+            pygame.draw.polygon(surface, mouth_col, mouth)
+        elif self.direc == 'L':
+            mouth = head_hex[3:5] + [head_center]
+            pygame.draw.polygon(surface, mouth_col, mouth)
+        elif self.direc == 'UL':
+            mouth = head_hex[4:] + [head_center]
+            pygame.draw.polygon(surface, mouth_col, mouth)
+        elif self.direc == 'UR':
+            mouth = [head_hex[5]] + [head_hex[0]] + [head_center]
+            pygame.draw.polygon(surface, mouth_col, mouth)
+
+        
+
     def draw(self, surface):
         inner_rad = width/2
         head_col = (0, 255, 0)
-        tail_col = (0, 0, 255)
+        tail_col = (19, 161, 97)
         head_hex = make_hex_points_from_coord((self.x, self.y), inner_rad)
         pygame.draw.polygon(surface, head_col, head_hex)
+        self.draw_mouth(surface)
         for tail_piece in self.tail_pos:
             tail_hex = make_hex_points_from_coord((tail_piece), inner_rad)
             pygame.draw.polygon(surface, tail_col, tail_hex)
 
-    def receive_orders(self, orders):
+    def receive_orders(self, order):
         """ Given orders 'L' 'R' 'UL' 'UR' 'DL' 'DR',
             updates direction of snake head in the next frame """
-        if orders == 'L':
+        if order == 'L':
+            self.direc = order
             self.x_dir = -1
             self.y_dir = 0
-        if orders == 'R':
+        if order == 'R':
+            self.direc = order
             self.x_dir = 1
             self.y_dir = 0
-        elif orders == 'DL':
+        elif order == 'DL':
+            self.direc = order
             self.x_dir = -1  # remember things are upside down in pygame
             self.y_dir = 1
-        elif orders == 'DR':
+        elif order == 'DR':
+            self.direc = order
             self.x_dir = 0  # remember things are upside down in pygame
             self.y_dir = 1
-        elif orders == 'UL':
+        elif order == 'UL':
+            self.direc = order
             self.x_dir = 0
             self.y_dir = -1
-        elif orders == 'UR':
+        elif order == 'UR':
+            self.direc = order
             self.x_dir = 1
             self.y_dir = -1
 
