@@ -6,6 +6,7 @@ This is a toy project that implements the classic game snake using the PyGame mo
 ## Rectangular snake
 
 <img src="screenshots/rect_snake_screenshot.png" width="500">
+
 Make sure you are in the project folder and then run:
 ```
 pipenv run python3 game/rect_snake.py
