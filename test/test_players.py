@@ -95,10 +95,10 @@ class TestHexSnake:
     @pytest.mark.parametrize('direction, coord', [
         ('L', (0, 1)),
         ('R', (2, 1)),
-        ('UL', (0, 2)),
-        ('UR', (1, 2)),
-        ('DL', (1, 0)),
-        ('DR', (2, 0))
+        ('DL', (0, 2)),
+        ('DR', (1, 2)),
+        ('UL', (1, 0)),
+        ('UR', (2, 0))
     ])
 
     def test_receive_orders(self, hex_snake_1, direction, coord):

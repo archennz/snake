@@ -50,7 +50,7 @@ def main():
 
     # it checks for the tangle a little bit too late for length 2 snake
     while not snake.is_tangled():
-        clock.tick(3)
+        clock.tick(1)
         screen.blit(background, (0, 0))
         apple.draw(screen)
         snake.draw(screen)

@@ -124,16 +124,16 @@ class HexSnake(Snake):
         if orders == 'R':
             self.x_dir = 1
             self.y_dir = 0
-        elif orders == 'UL':
+        elif orders == 'DL':
             self.x_dir = -1  # remember things are upside down in pygame
             self.y_dir = 1
-        elif orders == 'UR':
+        elif orders == 'DR':
             self.x_dir = 0  # remember things are upside down in pygame
             self.y_dir = 1
-        elif orders == 'DL':
+        elif orders == 'UL':
             self.x_dir = 0
             self.y_dir = -1
-        elif orders == 'DR':
+        elif orders == 'UR':
             self.x_dir = 1
             self.y_dir = -1
 
