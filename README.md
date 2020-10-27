@@ -25,5 +25,4 @@ an interactive window will pop-up and you can use the following keys to control 
 
 
 ## More ideas for extension:
-* hexagonal snake (coming soon! see hex_snake branch!)
 * snake with bridges/tunnels? (2.5 dimensional snake)
