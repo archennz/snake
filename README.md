@@ -1,4 +1,4 @@
-# snake
+# snake :snake:
 
 This is a toy project that implements the classic game snake using the PyGame module
 
