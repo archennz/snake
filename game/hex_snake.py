@@ -1,14 +1,15 @@
 import pygame
 from game.world import nrow, width
 from players import HexApple, HexSnake
-from utils import *
+from utils import initialise_screen, move_apple, is_eating, print_score
 import hex_utils
+
 
 def draw_grid(width, nrow, surface):
     """ creates hexagons for surface"""
     for i in range(nrow):
         for j in range(nrow):
-            game_coord = hex_utils.change_coord((i,j))
+            game_coord = hex_utils.change_coord((i, j))
             points = hex_utils.make_hex_points(game_coord, width/2)
             col = (255, 255, 255)
             pygame.draw.lines(surface, col, True, points)
@@ -32,11 +33,12 @@ def get_control():
             elif event.key == pygame.K_x:
                 return 'DR'
 
+
 def main():
     # make world
     # the initialise_screen method is a bit weird
     s_length = width*(nrow+1)*3/4
-    s_width = hex_utils.get_cross_width(width)*(nrow +1)
+    s_width = hex_utils.get_cross_width(width)*(nrow + 1)
     screen, background = initialise_screen(s_width, s_length, "Hex Snake")
     draw_grid(width, nrow, background)
     clock = pygame.time.Clock()
@@ -69,5 +71,5 @@ def main():
         print_score(score, screen)
 
 
-if __name__ == '__main__' :main()
-
+if __name__ == '__main__':
+    main()

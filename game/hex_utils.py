@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 def get_cross_width(h_width):
     return cos(radians(30))*width
 
+
 def change_coord(coord):
     """change coord from (column, row) to game coord
     game coord change big row numbers to negative
@@ -51,8 +52,9 @@ def make_hex_points(game_coord, inner_rad):
     cart_coord = draw_game_coord(game_coord)
     return make_hex(cart_coord, inner_rad)
 
+
 def make_hex_points_from_coord(coord, inner_rad):
-    """given (row, column) return cartesian coord for 
+    """given (row, column) return cartesian coord for
     the six points on the hex surrounding center"""
     game_coord = change_coord(coord)
     return make_hex_points(game_coord, inner_rad)
@@ -96,4 +98,5 @@ def draw_game_hex():
     plt.show()
 
 
-if __name__ == '__main__': draw_game_hex()
+if __name__ == '__main__':
+    draw_game_hex()

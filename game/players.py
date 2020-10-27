@@ -20,7 +20,7 @@ class Apple():
         except pygame.error as message:
             print('Cannot load image', image_name)
             raise SystemExit(message)
-        #image = image.convert()
+        # image = image.convert()
         image = pygame.transform.scale(image, (width, width))
         colorkey = image.get_at((1, 1))
         image.set_colorkey(colorkey)
@@ -39,7 +39,6 @@ class Apple():
 class Snake():
     def __init__(self, x, y):
         """ Given x,y position, assign snake of length 1"""
-        #pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
         self.x_dir = 0
@@ -104,7 +103,7 @@ class Snake():
         """ gives list of position of head and tail"""
         return [(self.x, self.y)] + self.tail_pos
 
-    
+
 class HexSnake(Snake):
     def draw(self, surface):
         inner_rad = width/2
@@ -115,7 +114,6 @@ class HexSnake(Snake):
         for tail_piece in self.tail_pos:
             tail_hex = make_hex_points_from_coord((tail_piece), inner_rad)
             pygame.draw.polygon(surface, tail_col, tail_hex)
-          
 
     def receive_orders(self, orders):
         """ Given orders 'L' 'R' 'UL' 'UR' 'DL' 'DR',
@@ -138,16 +136,15 @@ class HexSnake(Snake):
         elif orders == 'DR':
             self.x_dir = 1
             self.y_dir = -1
-        
+
 
 class HexApple(Apple):
     def __init__(self):
         super().__init__()
         self.image = Apple.get_image('apple.png', width//2)
-        
+
     def draw(self, surface):
         coord = (self.x, self.y)
         (center_x, center_y) = convert_coord_to_game_coord(coord)
         game_cart_coord = (center_x - width//4, center_y - width//4)
         surface.blit(self.image, game_cart_coord)
-        

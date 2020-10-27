@@ -1,7 +1,6 @@
 import pygame
-from game.world import nrow, width  # import size of world
-from players import Apple, Snake
 from math import ceil
+
 
 def initialise_screen(s_width, s_length, name):
     """makes screen
