@@ -49,11 +49,11 @@ class Snake():
 
     def draw(self, surface):
         """prints snake head and tail on surface"""
-        rad = width/2
-        cent = (self.x * width + rad, self.y * width + rad)
-        pygame.draw.circle(surface, (0, 255, 0), cent, rad)
+        head_col = (0, 255, 0)
+        tail_col = (19, 161, 97)
+        pygame.draw.rect(surface, head_col, self.rect)
         for rect in self.tail:
-            pygame.draw.rect(surface, (0, 0, 255), rect)
+            pygame.draw.rect(surface, tail_col, rect)
 
     def move_head(self):
         """update position according to direction """
