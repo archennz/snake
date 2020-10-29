@@ -1,9 +1,13 @@
 language: python
+
+cache: pip
+
 python:
   - "3.8"
 install:
   - pip install pipenv
   - pipenv install
+  - python setup.py install
 # tests
 script:
   - pytest
